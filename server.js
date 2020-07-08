@@ -10,10 +10,9 @@ app.use(express.json());
 
 // view / html
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 /// api / json
-
 
 app.listen(PORT, (req, res) => {
   console.log('currently running on http://localhost:${PORT}');
