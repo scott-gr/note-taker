@@ -19,6 +19,9 @@ app.get('/api/notes', (req, res) => {
   res.json(db);
 });
 
+
+
+
 app.listen(PORT, (req, res) => {
   console.log('currently running on http://localhost:${PORT}');
 });
