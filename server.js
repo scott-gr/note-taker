@@ -1,4 +1,6 @@
 const express = require('express');
+const { fstat } = require('fs');
+const { listenerCount } = require('process');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -9,19 +11,25 @@ app.use(express.static("public"));
 
 // view / html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/notes.html'));
+  res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 /// api / json
 app.get('/api/notes', (req, res) => {
-  res.json(db);
+  fs.readFile('./db/db.json', 'utf-8', (err,data) => {
+    if (err) {
+      console.log('Sorry! We could not read your note.');
+    }
+    db = JSON.parse(data);
+    res.json(db);
+  });
 });
 
 
 
 
-app.listen(PORT, (req, res) => {
-  console.log('currently running on http://localhost:${PORT}');
+const listener = app.listen(PORT, (req, res) => {
+  console.log('Currently running on port: ' +listener.address().port);
 });
