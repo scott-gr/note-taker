@@ -1,6 +1,4 @@
 const express = require('express');
-const { fstat } = require('fs');
-const { listenerCount } = require('process');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -9,18 +7,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-
-// /// api / json
-// app.get('/api/notes', (req, res) => {
-//   fs.readFile('./db/db.json', 'utf-8', (err,data) => {
-//     if (err) {
-//       console.log('Sorry! We could not read your note.');
-//     }
-//     db = JSON.parse(data);
-//     res.json(db);
-//   });
-// });
-
+require('./routes/apiRoutes.js')(app);
+require('./routes/htmlRoutes.js')(app);
 
 
 
