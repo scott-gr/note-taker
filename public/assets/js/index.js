@@ -1,4 +1,8 @@
-
+const $noteTitle = $(".note-title");
+const $noteText = $(".note-textarea");
+const $saveNoteBtn = $(".save-note");
+const $newNoteBtn = $(".new-note");
+const $noteList = $(".list-container .list-group");
 
 //title, text, save btn, new btn, list
 
