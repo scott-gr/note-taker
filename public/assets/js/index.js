@@ -84,8 +84,64 @@ const handleView = function () {
   renderCurrentNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewView = function () {
   currentNote = {};
   renderCurrentNote();
 };
+
+//if title or text are empty, hide save button
+const handleSaveBtn = function () {
+  if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
+    $saveNoteBtn.hide();
+  } else {
+    $saveNoteBtn.show();
+  }
+};
+
+//renders list of note titles
+const renderNoteList = (notes) => {
+  $noteList.empty();
+
+  const noteListItems = [];
+
+  const create$li = (text, withDeleteButton = true) => {
+    const $li = $("<li class='list-group-item'>");
+    const $span = $("<span>").text(text);
+    $li.append($span);
+
+    if (withDeleteButton) {
+      const $delBtn = $(
+        "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
+      );
+      $li.append($delBtn);
+    }
+    return $li;
+  };
+
+  if (notes.length === 0) {
+    noteListItems.push(create$li("You have no saved notes.", false));
+  }
+
+  notes.forEach((note) => {
+    const $li = create$li(note.title).data(note);
+    noteListItems.push($li);
+  });
+
+  $noteList.append(noteListItems);
+};
+
+//render notes to sidebar
+const getAndRenderNotes = () => {
+  return getNotes().then(renderNoteList);
+};
+
+//on click events for buttons
+$saveNoteBtn.on("click", handleSave);
+$noteList.on("click", ".list-group-item", handleView);
+$newNoteBtn.on("click", handleNewView);
+$noteList.on("click", ".delete-note", handleDelete);
+$noteTitle.on("keyup", handleSaveBtn);
+$noteText.on("keyup", handleSaveBtn);
+
+// Gets and renders notes on load
+getAndRenderNotes();
