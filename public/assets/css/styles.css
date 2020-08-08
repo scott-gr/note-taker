@@ -1,0 +1,23 @@
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.note-title {
+  height: 40px;
+  margin-top: 15px;
+  font-size: 2rem;
+}
+
+.list-container .list-group-item {
+  border-left: none;
+  border-right: none;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.note-textarea {
+  padding-top: 15px;
+  margin-top: 15px;
+}

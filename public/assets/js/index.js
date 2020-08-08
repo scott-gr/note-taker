@@ -130,3 +130,18 @@ const renderNoteList = (notes) => {
   $noteList.append(noteListItems);
 };
 
+//render notes to sidebar
+const getAndRenderNotes = () => {
+  return getNotes().then(renderNoteList);
+};
+
+//on click events for buttons
+$saveNoteBtn.on("click", handleSave);
+$noteList.on("click", ".list-group-item", handleView);
+$newNoteBtn.on("click", handleNewView);
+$noteList.on("click", ".delete-note", handleDelete);
+$noteTitle.on("keyup", handleSaveBtn);
+$noteText.on("keyup", handleSaveBtn);
+
+// Gets and renders notes on load
+getAndRenderNotes();
